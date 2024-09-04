@@ -45,8 +45,8 @@
             env = {
                 ROS_PACKAGE_PATH = pkgs.lib.concatStringsSep ":" (
                   map (p: "${p}/share") [
-                    inputs.gerard-bauzil.packages.${system}.gerard-bauzil
-                    inputs.hpp-practicals.packages.${system}.hpp-practicals
+                    self'.packages.gerard-bauzil
+                    self'.packages.hpp-practicals
                     self'.packages.pmb2-meshes
                     self'.packages.tiago-data
                     self'.packages.tiago-meshes
@@ -67,6 +67,8 @@
             ];
           };
           packages = {
+            inherit (inputs.gerard-bauzil.packages.${system}) gerard-bauzil;
+            inherit (inputs.hpp-practicals.packages.${system}) hpp-practicals;
             default = self'.packages.hpp-nix;
             gepetto-gui = with pkgs.python3Packages; toPythonApplication (gepetto-viewer.override {
               plugins = [
