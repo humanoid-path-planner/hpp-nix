@@ -68,6 +68,7 @@
           };
           packages = {
             inherit (inputs.gerard-bauzil.packages.${system}) gerard-bauzil;
+            inherit (inputs.gtsp-laas.packages.${system}) gtsp-laas;
             inherit (inputs.hpp-practicals.packages.${system}) hpp-practicals;
             default = self'.packages.hpp-nix;
             gepetto-gui = with pkgs.python3Packages; toPythonApplication (gepetto-viewer.override {
