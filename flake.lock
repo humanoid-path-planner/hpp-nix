@@ -92,37 +92,13 @@
         "type": "github"
       }
     },
-    "hpp-task-sequencing": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1725293125,
-        "narHash": "sha256-4gyp6modUOg/JZfBmRs9YSPvWVrhgXRZW950iPr0e4A=",
-        "owner": "nim65s",
-        "repo": "hpp-task-sequencing",
-        "rev": "e7fc38ba0cb60d7b79439635285053dbe4dc7e8e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nim65s",
-        "ref": "nix",
-        "repo": "hpp-task-sequencing",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1725468211,
-        "narHash": "sha256-yOP5mVHltMR2nFAJqYsUwJrsLTvhaJWXb5w0DCnzq2Y=",
+        "lastModified": 1725554989,
+        "narHash": "sha256-qPeOpug33RMPYeWtUPUcpw/NgMGE6PDwo57RHRG0IBw=",
         "owner": "gepetto",
         "repo": "nixpkgs",
-        "rev": "61700d9c290225b3492221fddba61ed6e776806c",
+        "rev": "6d77ed1ba9b80d2c6a208cd2027b6f3dfe89667a",
         "type": "github"
       },
       "original": {
@@ -138,7 +114,6 @@
         "gerard-bauzil": "gerard-bauzil",
         "gtsp-laas": "gtsp-laas",
         "hpp-practicals": "hpp-practicals",
-        "hpp-task-sequencing": "hpp-task-sequencing",
         "nixpkgs": "nixpkgs"
       }
     }

@@ -1,41 +1,23 @@
-{
-  stdenv,
-  hpp-task-sequencing,
-  lib,
-  python3Packages,
-  rsync,
-}:
-let
-  inherit (python3Packages.python) sitePackages;
-in
-python3Packages.toPythonModule (stdenv.mkDerivation {
-  pname = "hpp-nix";
-  version = "0.0.1";
-
-  dontBuild = true;
-  dontUnpack = true;
-
-  propagatedBuildInputs = [
-    python3Packages.numpy
-    python3Packages.omniorbpy
+{ symlinkJoin, python3Packages }:
+symlinkJoin {
+  name = "hpp-nix";
+  paths = with python3Packages; [
+    hpp-baxter
+    hpp-bezier-com-traj
+    hpp-centroidal-dynamics
+    hpp-constraints
+    hpp-corbaserver
+    hpp-environments
+    hpp-gepetto-viewer
+    hpp-gui
+    hpp-manipulation
+    hpp-manipulation-corba
+    hpp-pinocchio
+    hpp-plot
+    hpp-practicals
+    hpp-romeo
+    hpp-task-sequencing.out  # TODO
+    hpp-tutorial
+    hpp-universal-robot
   ];
-
-  installPhase = ''
-    mkdir -p $out/${sitePackages}
-    for pkg in \
-      ${python3Packages.hpp-baxter.out} \
-      ${python3Packages.hpp-corbaserver.out} \
-      ${python3Packages.hpp-environments.out} \
-      ${python3Packages.hpp-gepetto-viewer.out} \
-      ${python3Packages.hpp-gui.out} \
-      ${python3Packages.hpp-manipulation-corba.out} \
-      ${python3Packages.hpp-practicals.out} \
-      ${python3Packages.hpp-romeo.out} \
-      ${hpp-task-sequencing.out} \
-      ${python3Packages.hpp-tutorial.out} \
-      ${python3Packages.hpp-universal-robot.out}
-    do
-        ${lib.getExe rsync} -a $pkg/${sitePackages}/ $out/${sitePackages}
-    done
-  '';
-})
+}

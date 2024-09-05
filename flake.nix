@@ -22,11 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-    hpp-task-sequencing = {
-      url = "github:nim65s/hpp-task-sequencing/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
   };
 
   outputs =
@@ -43,21 +38,21 @@
         {
           devShells.default = pkgs.mkShell {
             env = {
-                ROS_PACKAGE_PATH = pkgs.lib.concatStringsSep ":" (
-                  map (p: "${p}/share") [
-                    self'.packages.gerard-bauzil
-                    self'.packages.hpp-practicals
-                    self'.packages.pmb2-meshes
-                    self'.packages.tiago-data
-                    self'.packages.tiago-meshes
-                    self'.packages.hey5-meshes
-                  ]
-                );
-                LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-                  pkgs.hpp-manipulation
-                  pkgs.hpp-manipulation-corba
-                ];
-              };
+              ROS_PACKAGE_PATH = pkgs.lib.concatStringsSep ":" (
+                map (p: "${p}/share") [
+                  self'.packages.gerard-bauzil
+                  self'.packages.hpp-practicals
+                  self'.packages.pmb2-meshes
+                  self'.packages.tiago-data
+                  self'.packages.tiago-meshes
+                  self'.packages.hey5-meshes
+                ]
+              );
+              HPP_PLUGIN_DIRS = pkgs.lib.makeLibraryPath [
+                pkgs.hpp-manipulation
+                pkgs.hpp-manipulation-corba
+              ];
+            };
             packages = [
               (pkgs.python3.withPackages (_: [
                 inputs.gtsp-laas.packages.${system}.gtsp-laas
@@ -70,18 +65,20 @@
             inherit (inputs.gerard-bauzil.packages.${system}) gerard-bauzil;
             inherit (inputs.gtsp-laas.packages.${system}) gtsp-laas;
             inherit (inputs.hpp-practicals.packages.${system}) hpp-practicals;
-            default = self'.packages.hpp-nix;
-            gepetto-gui = with pkgs.python3Packages; toPythonApplication (gepetto-viewer.override {
-              plugins = [
-                gepetto-viewer-corba
-                hpp-gepetto-viewer
-                hpp-gui
-              ];
-            });
+            default = pkgs.python3Packages.toPythonModule self'.packages.hpp-nix;
+            gepetto-gui =
+              with pkgs.python3Packages;
+              toPythonApplication (
+                gepetto-viewer.override {
+                  plugins = [
+                    gepetto-viewer-corba
+                    hpp-gepetto-viewer
+                    hpp-gui
+                  ];
+                }
+              );
             hey5-meshes = pkgs.callPackage ./hey5-meshes.nix { };
-            hpp-nix = pkgs.callPackage ./hpp-nix.nix {
-              inherit (inputs.hpp-task-sequencing.packages.${system}) hpp-task-sequencing;
-            };
+            hpp-nix = pkgs.callPackage ./hpp-nix.nix { };
             pmb2-meshes = pkgs.callPackage ./pmb2-meshes.nix { };
             tiago-data = pkgs.callPackage ./tiago-data.nix { };
             tiago-meshes = pkgs.callPackage ./tiago-meshes.nix { };
