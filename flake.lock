@@ -118,16 +118,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1725032552,
-        "narHash": "sha256-Y8/k1Mg41LM12aUyT8aqcCorWigt9U1rd9liNnM/oHA=",
-        "owner": "nim65s",
+        "lastModified": 1725468211,
+        "narHash": "sha256-yOP5mVHltMR2nFAJqYsUwJrsLTvhaJWXb5w0DCnzq2Y=",
+        "owner": "gepetto",
         "repo": "nixpkgs",
-        "rev": "8636c24af9524f3abc0199fffb8ca5824ee6bd1d",
+        "rev": "61700d9c290225b3492221fddba61ed6e776806c",
         "type": "github"
       },
       "original": {
-        "owner": "nim65s",
-        "ref": "pin-gv",
+        "owner": "gepetto",
+        "ref": "hpp",
         "repo": "nixpkgs",
         "type": "github"
       }
